@@ -20,6 +20,9 @@ async function getProjects(req: Request, res: Response) {
 
 async function getProjectById(req: Request, res: Response) {
     const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({error: "Project ID is required"});
+    }
     try{
         const project = await prisma.project.findUnique({
             where: {id}

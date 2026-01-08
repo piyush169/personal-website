@@ -10,6 +10,11 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   api:
     build:
@@ -28,10 +33,13 @@ services:
   frontend:
     build:
       context: ./frontend-website        
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     container_name: website-frontend
     restart: always
     ports:
       - "80:80"                 
     depends_on:
       - api
+
+volumes:
+  postgres_data:
