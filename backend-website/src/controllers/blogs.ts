@@ -1,6 +1,5 @@
 import type { Request, Response } from "express";
 import prisma from "../db/index.js";
-import { create } from "node:domain";
 
 async function getBlogs(req: Request, res: Response) {
     try{
@@ -20,9 +19,12 @@ async function getBlogs(req: Request, res: Response) {
 
 async function getBlogById(req: Request, res: Response) {
     const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({error: "Blog ID is required"});
+    }
     try{
         const blog = await prisma.blog.findUnique({
-            where: {id: id}
+            where: {id}
         });
         if(!blog){
             return  res.status(404).json({error: "Blog not found"});
