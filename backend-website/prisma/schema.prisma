@@ -1,0 +1,50 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url = env("DATABASE_URL")
+}
+
+model Project {
+    id          String  @id
+    title       String
+    description String? @db.Text
+    techStack   String[]
+    githubUrl   String?
+    liveUrl     String?
+    image       String?
+
+    //for n8n pipeline
+    notionId    String? @unique
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt      
+
+    @@map("projects")
+}
+
+model Blog {
+    id      String @id @default(uuid())
+    title   String
+    slug    String  @unique
+    content String  @db.Text
+    
+    //metadata
+    published   Boolean @default(false)
+    notionId    String? @unique
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt
+
+    @@map("blogs")
+}
+
+model Version{
+    id      Int     @id @default(1)
+    current String
+    lastBuild   DateTime @default(now())
+
+    @@map("versions")
+}
+
+
