@@ -20,4 +20,6 @@ jobs:
           script: |
             cd /var/www/my-website
             git pull origin main
+            
+            docker compose down
             docker compose up -d --build --remove-orphans
