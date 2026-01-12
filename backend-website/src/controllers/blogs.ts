@@ -22,7 +22,7 @@ async function getBlogById(req: Request, res: Response) {
     const { id } = req.params;
     try{
         const blog = await prisma.blog.findUnique({
-            where: {id: id}
+            where: {id: String(id)}
         });
         if(!blog){
             return  res.status(404).json({error: "Blog not found"});
