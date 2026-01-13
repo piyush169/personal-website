@@ -35,6 +35,32 @@ services:
     depends_on:
       - api
 
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    restart: always
+    environment:
+      
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_DATABASE=n8n_internal
+      - DB_POSTGRESDB_HOST=db  
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_USER=${POSTGRES_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+      
+      
+      - N8N_HOST=piyu.me
+      - WEBHOOK_URL=https://piyu.me/n8n/
+      - N8N_PATH=/n8n/
+    volumes:
+      - n8n_data:/home/node/.n8n
+    deploy:
+      resources:
+        limits:
+          memory: 400M 
+    depends_on:
+      - db
+
 
 volumes:
   postgres_data:
