@@ -11,7 +11,7 @@ RUN npx prisma generate
 
 COPY . .
 
-RUN npm run build
+RUN npx tsc --outDir dist
 
 EXPOSE 3000
-CMD ["node", "dist/server.js"]
+CMD ["npm", "run", "start:prod"]
