@@ -58,7 +58,7 @@ export default function ProjectDetail() {
             <AnimatedSection delay={100}>
               <header className="mb-8">
                 <h1 className="font-mono text-3xl md:text-4xl font-bold tracking-tight mb-4">
-                  {project.name}
+                  {project.title}
                 </h1>
                 
                 <div className="flex flex-wrap gap-2 mb-6">
@@ -80,7 +80,7 @@ export default function ProjectDetail() {
                     className="inline-flex items-center gap-2 font-mono text-sm text-foreground hover:text-foreground/80 transition-all duration-300 hover:scale-105"
                   >
                     <Github className="w-4 h-4" />
-                    View Source
+                    Source Code
                   </a>
                   
                   {project.liveUrl && (
@@ -91,19 +91,19 @@ export default function ProjectDetail() {
                       className="inline-flex items-center gap-2 font-mono text-sm text-foreground hover:text-foreground/80 transition-all duration-300 hover:scale-105"
                     >
                       <ExternalLink className="w-4 h-4" />
-                      Live Demo
+                      Live
                     </a>
                   )}
                 </div>
               </header>
             </AnimatedSection>
 
-            {project.imageUrl && (
+            {project.image && (
               <AnimatedSection delay={200}>
                 <div className="mb-8 overflow-hidden rounded-lg border border-border/20">
                   <img
-                    src={project.imageUrl}
-                    alt={project.name}
+                    src={project.image}
+                    alt={project.title}
                     className="w-full transition-transform duration-500 hover:scale-105"
                   />
                 </div>
