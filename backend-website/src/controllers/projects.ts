@@ -1,6 +1,16 @@
 import type { Request, Response } from "express";
 import prisma from "../db/index.js";
 
+interface ProjectRequestBody {
+  notionId: string;
+  title: string;
+  description?: string;
+  techStack: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+  image?: string;
+}
+
 async function getProjects(req: Request, res: Response) {
     try{
         const projects = await prisma.project.findMany({
@@ -34,4 +44,22 @@ async function getProjectById(req: Request, res: Response) {
     }
 }
 
-export { getProjects, getProjectById };
+async function createProject(req: Request<{}, {}, ProjectRequestBody>, res: Response) {
+    try{
+        const project = await prisma.project.upsert({
+            where: { notionId: req.body.notionId },
+            update: req.body,
+            create: {
+                ...req.body,
+                id: req.body.notionId
+            }
+        });
+
+        res.status(201).json({ success: true, project });
+    }
+    catch(error){
+        res.status(500).json({error: "Unable to create project"});
+    }
+}
+
+export { getProjects, getProjectById, createProject };

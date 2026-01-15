@@ -34,4 +34,28 @@ async function getBlogById(req: Request, res: Response) {
     }
 }
 
-export { getBlogs, getBlogById };   
+interface BlogRequestBody {
+  notionId: string;
+  title: string;
+  slug: string;
+  content: string;
+  published?: boolean;
+}
+
+async function syncBlog(req: Request<{}, {}, BlogRequestBody>, res: Response) {
+    try {
+        const blog = await prisma.blog.upsert({
+            where: { notionId: req.body.notionId }, 
+            update: req.body, 
+            create: {
+                ...req.body,
+                id: req.body.notionId 
+            }
+        });
+
+        res.status(201).json({ success: true, blog });
+    } catch (error) {
+        res.status(500).json({ error: "Sync failed. Check if slug is unique." });
+    }
+}
+export { getBlogs, getBlogById, syncBlog };   

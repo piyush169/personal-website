@@ -22,6 +22,7 @@ app.get("/version", (req, res) => {
 app.use("/blogs", blogRoutes);
 app.use("/projects", projectRoutes);
 
+
 export default app;
 
 
