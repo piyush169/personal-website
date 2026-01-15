@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'https://piyu.me';
+export const API_BASE_URL = 'https://piyu.me/api/';
 
 // Types
 export interface Blog {
