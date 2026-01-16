@@ -51,7 +51,7 @@ services:
       
       - N8N_HOST=piyu.me
       - WEBHOOK_URL=https://piyu.me/n8n/
-      
+      - N8N_PATH=/n8n/
     volumes:
       - n8n_data:/home/node/.n8n
     ports:
