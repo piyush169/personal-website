@@ -62,6 +62,17 @@ services:
           memory: 400M 
     depends_on:
       - db
+  
+  nginx-proxy-manager:
+  image: 'jc21/nginx-proxy-manager:latest'
+  restart: always
+  ports:
+    - '80:80'
+    - '81:81' # This is the portal port
+    - '443:443'
+  volumes:
+    - ./data:/data
+    - ./letsencrypt:/etc/letsencrypt
 
 
 volumes:
