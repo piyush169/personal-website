@@ -45,20 +45,31 @@ async function getProjectById(req: Request, res: Response) {
 }
 
 async function createProject(req: Request<{}, {}, ProjectRequestBody>, res: Response) {
-    try{
+    try {
+        const body = req.body;
+        
+        const data = {
+            title: body.title,
+            description: body.description || null,
+            techStack: body.techStack,
+            image: body.image || null,
+            liveUrl: body.liveUrl || null,
+            githubUrl: body.githubUrl || null,
+            notionId: body.notionId 
+        };
+
         const project = await prisma.project.upsert({
-            where: { notionId: req.body.notionId },
-            update: req.body,
+            where: { notionId: body.notionId }, 
+            update: data,
             create: {
-                ...req.body,
-                id: req.body.notionId
+                id: body.notionId, 
+                ...data
             }
         });
 
         res.status(201).json({ success: true, project });
-    }
-    catch(error){
-        res.status(500).json({error: "Unable to create project"});
+    } catch (err) {
+        res.status(500).json({ error: "fail_upsert_project" });
     }
 }
 
