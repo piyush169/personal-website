@@ -30,13 +30,13 @@ __Delivery__: The Backend API serves the cleaned data to the frontend.
 
 **Local Development**
 
-Clone the repo: git clone https://github.com/piyush169/personal-website.git
+Clone the repo: `git clone https://github.com/piyush169/personal-website.git`
 
 Install dependencies in /backend-website and /frontend-website.
 
-Set up your .env for Prisma and DB connection strings.
+Set up your `.env` for Prisma and DB connection strings.
 
-Run docker-compose up -d to launch the local stack.
+Run `docker-compose up -d` to launch the local stack.
 
 **Production**
 
