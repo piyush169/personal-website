@@ -18,8 +18,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /var/www/my-website
-            git pull origin main
-            
-            docker compose down
-            docker compose up -d --build --remove-orphans
+            cd ~/portfolio
+            git pull origin main            
+            docker-compose down
+            docker-compose up -d --build --remove-orphans
