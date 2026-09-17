@@ -44,6 +44,7 @@ services:
       - DB_TYPE=postgresdb
       - DB_POSTGRESDB_DATABASE=n8n_internal
       - DB_POSTGRESDB_HOST=db  
+      - NODE_OPTIONS=--max-old-space-size=2048
       - DB_POSTGRESDB_PORT=5432
       - DB_POSTGRESDB_USER=${POSTGRES_USER}
       - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
